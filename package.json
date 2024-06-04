@@ -1,0 +1,64 @@
+{
+  "name": "my-app-user",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "blocklet dev",
+    "start": "cross-env NODE_ENV=development nodemon api/dev.js -w api",
+    "clean": "node scripts/build-clean.js",
+    "bundle": "npm run bundle:client && npm run bundle:api",
+    "bundle:client": "vite build",
+    "bundle:api": "npm run clean && blocklet bundle --zip --create-release",
+    "deploy": "npm run bundle && blocklet deploy .blocklet/bundle --app-id zNKk8m9gRZxpQ1BmN3SDemhGxtsH69fFz2CH",
+    "upload": "npm run bundle && blocklet upload .blocklet/release/blocklet.json",
+    "lint": "eslint src api --ext .mjs,.js,.vue",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky install",
+    "bump-version": "zx --quiet scripts/bump-version.mjs"
+  },
+  "dependencies": {
+    "@arcblock/did-auth": "^1.18.108",
+    "@arcblock/did-auth-storage-nedb": "^1.7.1",
+    "@blocklet/sdk": "^1.16.20",
+    "@ocap/client": "^1.18.108",
+    "@ocap/mcrypto": "^1.18.108",
+    "@ocap/wallet": "^1.18.108",
+    "axios": "^1.6.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv-flow": "^3.3.0",
+    "element-plus": "^2.7.4",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "vue": "^3.3.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.5.2",
+    "autoprefixer": "^10.4.19",
+    "bumpp": "^8.2.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.19.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^12.5.0",
+    "nodemon": "^3.0.2",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.38",
+    "prettier": "^3.1.1",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.0.10",
+    "vite-plugin-blocklet": "^0.7.9",
+    "zx": "^7.2.3"
+  },
+  "lint-staged": {
+    "*.{mjs,js,vue}": [
+      "prettier --write",
+      "eslint --ext .mjs,.js,.vue"
+    ],
+    "*.{css,less,scss,json,graphql}": [
+      "prettier --write"
+    ]
+  }
+}
